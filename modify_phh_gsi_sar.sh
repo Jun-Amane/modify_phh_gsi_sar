@@ -135,7 +135,9 @@ fi
 #fi
 
 umount /system 2>/dev/null
-mount -o rw --move /system /system_root
+umount /system_root 2>/dev/null
+mount -o rw /dev/block/bootdevice/by-name/system /system_root/
+mount -o bind /system_root/system /system
 rc=$?
 if [[ $rc -ne 0 ]]; then
     echo "ERROR: failed to mount /system read-write with rc=$rc"
